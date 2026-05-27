@@ -1,6 +1,4 @@
-﻿// leetcode_1_10.cpp : 此文件包含 "main" 函数。程序执行将在此处开始并结束。
-//
-
+﻿// leetcode_1_10.cpp
 #include <bits/stdc++.h>
 using namespace std;
 vector<int> towSum(vector<int>& nums,int target) {
