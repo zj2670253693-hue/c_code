@@ -10,7 +10,6 @@ vector<int> towSum(vector<int>& nums,int target) {
         }
         map[nums[i]] = i;
     }
-
     return {};
 }
 int main() {
@@ -20,6 +19,5 @@ int main() {
     for (int i = 0;i<res.size();i++) {
         cout << res[i] << " ";
     }
-
     return 0;
 }
