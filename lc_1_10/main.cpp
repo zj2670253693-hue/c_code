@@ -16,7 +16,8 @@ vector<int> towSum(vector<int>& nums,int target) {
 // 在一个整形数组中，使用快速选择算法，得到第k个小的数
 const int N = 100010;
 int q[N];
-int n,k;
+int n;
+int temp[N];
 int quick_select(int l,int r,int k) {
     if (l == r) {
         return q[l];
@@ -36,16 +37,83 @@ int quick_select(int l,int r,int k) {
     return quick_select(j+1,r,k-sl);
 }
 // 快速排序
-
+void quick_sort(int q[],int l,int r) {
+    if (r <= l) return;
+    int i = l -1,j = r+1,x = q[l];
+    while (i < j) {
+        do i++; while (q[i] < x);
+        do j--; while (q[j] > x);
+        if (i < j) {
+            swap(q[i],q[j]);
+        }
+    }
+    quick_sort(q,l,j);
+    quick_sort(q,j+1,r);
+}
 // 归并排序
+
+void marge_sort(int q[],int l,int r) {
+    if (r <= l) return;
+    int mid = r + l >> 1;
+    marge_sort(q,l,mid);
+    marge_sort(q,mid+1,r);
+    int i = l,j = mid+1,k = 0;
+    while (i <= mid && j <= r) {
+        if (q[i] < q[j])
+            temp[k++] = q[i++];
+        else
+            temp[k++] = q[j++];
+    }
+    while (i<=mid) temp[k++] = q[i++];
+    while (j<=r) temp[k++] = q[j++];
+    // 复制回原来的数组
+    for (i = l,j = 0;i<=r;i++,j++) {
+        q[i] = temp[j];
+    }
+}
 // 整数二分
 // 浮点数二分
+void marge_sort_1(int q[],int l,int r) {
+    if (l >= r ) {
+        return;
+    }
+    int mid = (l + r) >> 1;
+    marge_sort_1(q,l,mid);
+    marge_sort_1(q,mid+1,r);
+    int i = l,k = 0,j = mid+1;
+    while (i <= mid && j <= r) {
+        if (q[i] <= q[j]) {
+            temp[k++] = q[i++];
+        }else {
+            temp[k++] = q[j++];
+        }
+    }
+    // 剩余的
+    while (i <= mid) {
+        temp[k++] = q[i++];
+    }
+    while (j <= r) {
+        temp[k++] = q[j++];
+    }
+    // 把临时temp赋值到q中
+    for (i = l,j = 0;i <= r;i++,j++) {
+        q[i] = temp[j];
+    }
+}
 int main() {
-    cin >> n >> k;
+    cin >> n;
     for (int i = 0; i < n; i++) {
         cin >> q[i];
     }
-    cout << quick_select(0,n-1,k);
+    marge_sort(q,0,n-1);
+    for (int i = 0; i < n; i++) {
+        cout << q[i] << " ";
+    }
+    // quick_sort(q,0,n-1);5
+    // for (int i = 0; i < n; i++) {
+    //     cout << q[i] << " ";
+    // }
+    // cout << quick_select(0,n-1,k);
     // vector<int> nums = {2,7,11,15};
     // int target = 9;
     // vector<int> res = towSum(nums,target);
