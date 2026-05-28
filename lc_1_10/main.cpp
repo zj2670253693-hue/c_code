@@ -10,7 +10,6 @@ vector<int> towSum(vector<int>& nums,int target) {
         }
         map[nums[i]] = i;
     }
-
     return {};
 }
 int main() {
