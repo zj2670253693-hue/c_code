@@ -8,6 +8,7 @@ vector<int> towSum(vector<int>& nums,int target) {
         if (map.count(r)) {
             return {map[r],i};
         }
+
         map[nums[i]] = i;
     }
     return {};
